@@ -5,11 +5,12 @@ export default function Index() {
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
       }}
     >
-      <Text>Adopt A pet</Text>
+      <Text style={{ 
+        fontFamily: 'outfit-bold',
+        fontSize:40
+      }}>Adopt A pet</Text>
     </View>
   );
 }
