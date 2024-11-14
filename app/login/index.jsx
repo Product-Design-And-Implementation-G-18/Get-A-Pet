@@ -4,7 +4,10 @@ import Colors from'./../../constant/colors'
 
 export default function LoginScreen() {
   return (
-    <View>
+    <View style={{
+      backgroundColor:Colors.WHITE,
+      height:'100%',
+    } }>
 <image source={require('./../../assests/images/login.png')}></image>
 
      style={{
@@ -33,6 +36,28 @@ export default function LoginScreen() {
             marginTop:10,
             textAlign:'center',
          }}>"Rescue, love, repeat- adopt your new best friend!"</Text>
+         <pressable>
+
+          
+           style={{
+                padding:14,
+                backgroundColor:Colors.PRIMARY,
+                width:'100%',
+                borderRadius:14,
+              }}
+                
+                <Text style={{
+                marginBottom:20,
+                fontFamily:'outfit-medium',
+                fontSize:20,
+                textAlign:'center',
+                color:Colors.BLUE,
+                marginTop:100,
+                
+              
+          }}>Get started</Text>
+         </pressable>
+
         </View>
     </View>
   )
