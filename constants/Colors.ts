@@ -1,5 +1,5 @@
-export default{
+export default {
   PRIMARY: '#E8B20E',
-  GRAY: '#8F8E8d',
+  GRAY: '#8F8e8d',
   WHITE: '#ffffff',
-}
+};

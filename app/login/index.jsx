@@ -1,20 +1,18 @@
-import { View, Text } from 'react-native'
+import { View, Text, Image, Pressable } from 'react-native'
 import React from 'react'
-import Colors from'./../../constant/colors'
+import Colors from './../../constants/Colors'
 
 export default function LoginScreen() {
   return (
     <View style={{
       backgroundColor:Colors.WHITE,
-      height:'100%',
+      height:'100%'
     } }>
-<image source={require('./../../assests/images/login.png')}></image>
-
-     style={{
+<Image source={require('./../../assets/images/login.png')} style={{
+        width: '100%',
+        height: 450,
         
-        width:'100',
-        height:'500',
-        }}
+        }} />
         
 <View style={{
     padding:20,
@@ -26,7 +24,7 @@ export default function LoginScreen() {
                 fontFamily:'outfit-bold',
                 fontSize:30,
                 textAlign:'center',
-                Color:Colors.GRAY
+                color: Colors.GRAY
                 
          
          }}>Ready to make a new friend?</Text>
@@ -36,29 +34,24 @@ export default function LoginScreen() {
             marginTop:10,
             textAlign:'center',
          }}>"Rescue, love, repeat- adopt your new best friend!"</Text>
-         <pressable>
+         
 
-          
-           style={{
-                padding:14,
-                backgroundColor:Colors.PRIMARY,
-                width:'100%',
-                borderRadius:14,
-              }}
-                
+         <Pressable style={{
+                padding: 14,
+                backgroundColor: Colors.PRIMARY,
+                width: '100%',
+                borderRadius: 14,
+                marginTop: 100,
+              }}>
                 <Text style={{
-                marginBottom:20,
-                fontFamily:'outfit-medium',
-                fontSize:20,
-                textAlign:'center',
-                color:Colors.BLUE,
-                marginTop:100,
-                
-              
+                fontFamily: 'outfit-medium',
+                fontSize: 20,
+                textAlign: 'center',
+                color: Colors.BLUE,
+                marginBottom: 0,
           }}>Get started</Text>
-         </pressable>
-
-        </View>
+         </Pressable>
     </View>
+  </View>
   )
 }

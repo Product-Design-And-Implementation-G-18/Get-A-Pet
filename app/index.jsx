@@ -1,4 +1,6 @@
+import {Link} from "expo-router";  
 import { Text, View } from "react-native";
+
 
 export default function Index() {
   return (
@@ -7,10 +9,9 @@ export default function Index() {
         flex: 1,
       }}
     >
-      <Text style={{ 
-        fontFamily: 'outfit-bold',
-        fontSize:40
-      }}>Adopt A pet</Text>
+      <Link href={'/login'}>
+        <Text>LoginScreen</Text>
+      </Link>
     </View>
   );
 }
