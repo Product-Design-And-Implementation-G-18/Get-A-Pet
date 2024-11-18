@@ -1,5 +1,6 @@
 import {useFonts} from "expo-font"; 
 import { Stack } from "expo-router";
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY
 
 export default function RootLayout() {
   useFonts({
@@ -12,6 +13,7 @@ export default function RootLayout() {
 
 
   return (
+    <ClerkProvider publishableKey={publishableKey}>
     <Stack>
       <Stack.Screen name="index" />
       <Stack.Screen name="login/index" 
@@ -19,5 +21,6 @@ export default function RootLayout() {
          headerShown: false }} />
     
     </Stack>
+    </ClerkProvider>
   );
 }
