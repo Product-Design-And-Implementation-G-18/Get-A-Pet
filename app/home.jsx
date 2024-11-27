@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
-import Header from '../assets/components/Home/Header'
+import Header from '../assets/components/Header'
 import React from 'react'
 
 export default function Home() {
   return (
-    <View   style ={{
+    <View style={{
       padding:20,
       marginTop:20
   }}
