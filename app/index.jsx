@@ -1,27 +1,22 @@
-import { useUser} from "@clerk/clerk-expo";
-import {Link,Redirect,useRootNavigationState} from "expo-router";  
-import { Pressable,Text, View } from "react-native";
-import { useEffect} from "react";
-
-
-
+import { useUser } from "@clerk/clerk-expo";
+import { Link, useRootNavigationState } from "expo-router";
+import { Redirect } from "expo-router";
+import { Pressable, Text, View } from "react-native";
+import { useEffect } from "react";
 
 export default function Index() {
-  const{user }= useUser();
-  
+  const { user } = useUser();
 
   const rootNavigationState = useRootNavigationState();
 
- useEffect(()=>{
-  checkNanloaded();
- 
-}, [])
+  const checkNanloaded = () => {
+    if (!rootNavigationState.key) return null;
+  };
 
-const checkNanloaded = () => {
-  if(!
-    rootNavigationState.key)
-    return null
-  }
+  useEffect(() => {
+    checkNanloaded();
+  }, [rootNavigationState]);
+
   return (
     user && (
       <View
@@ -29,13 +24,11 @@ const checkNanloaded = () => {
           flex: 1,
         }}
       >
-        {user ? (
-          // Uncomment and replace with your navigation logic if needed
-          // <Link href={'/(tabs)/'}>
-          <Redirect href={'/(tabs)/home'} />
-        ) : (
-          <Redirect href={'/login/'} />
-        )}
+        {user ? 
+         
+          <Redirect href={"(tabs)/home"} />
+          :<Redirect href={"/login/"} />
+        }
       </View>
     )
   );
