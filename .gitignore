@@ -1,3 +1,6 @@
+
+expo-env.d.ts
+# @end expo-cli
 node_modules/
 .expo/
 dist/
@@ -18,3 +21,6 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
+
+# Ignore the CORS configuration file
+cors.json

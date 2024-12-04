@@ -25,9 +25,9 @@ export default function Slider() {
     for (const doc of snapshot.docs) {
       const sliderData = doc.data();
       try {
-        // Assuming sliderData.imageUrl is the path to the image in Firebase Storage
-        const imageRef = ref(storage, sliderData.imageUrl); // Create reference to Firebase Storage
-        const imageUrl = await getDownloadURL(imageRef); // Fetch the image URL from Firebase Storage
+        
+        const imageRef = ref(storage, sliderData.imageUrl); 
+        const imageUrl = await getDownloadURL(imageRef); 
         
         // Push the image URL to the sliders array
         sliders.push({ ...sliderData, imageUrl });
