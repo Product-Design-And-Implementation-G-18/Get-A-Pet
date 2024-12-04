@@ -3,7 +3,7 @@ import React from 'react'
 import { useUser } from '@clerk/clerk-expo'
 
 export default function Header() {
-    const {user}=useUser();
+    const {user}= useUser();
   return (
     <View style={{
         display:'flex',

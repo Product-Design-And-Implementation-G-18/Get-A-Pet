@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, Image, StyleSheet } from 'react-native';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from './../../config/FirebaseConfig';
+import { storage } from '../../../config/FirebaseConfig'; 
+import { ref, getDownloadURL } from 'firebase/storage'; 
+
+
+import { db } from '../../../config/FirebaseConfig';
+
+
+
 
 export default function Slider() {
   const [SliderList, setSliderList] = useState([]);
@@ -12,26 +19,36 @@ export default function Slider() {
 
   const GetSliders = async () => {
     const snapshot = await getDocs(collection(db, 'Sliders'));
-    snapshot.forEach((doc) => {
-      console.log(doc.data());
-      setSliderList((SliderList) => [...SliderList, doc.data()]);
-    });
+    const sliders = [];
+
+    // Loop through each document in the 'Sliders' collection
+    for (const doc of snapshot.docs) {
+      const sliderData = doc.data();
+      try {
+        // Assuming sliderData.imageUrl is the path to the image in Firebase Storage
+        const imageRef = ref(storage, sliderData.imageUrl); // Create reference to Firebase Storage
+        const imageUrl = await getDownloadURL(imageRef); // Fetch the image URL from Firebase Storage
+        
+        // Push the image URL to the sliders array
+        sliders.push({ ...sliderData, imageUrl });
+      } catch (error) {
+        console.error('Error fetching image URL:', error);
+      }
+    }
+
+    // Set the state with the updated sliders array
+    setSliderList(sliders);
   };
 
   return (
-    <View style={{
-    marginTop:15
-    }}>
+    <View style={{ marginTop: 15 }}>
       <FlatList
         data={SliderList}
-        horizontal ={true}
-        showsHorizontalScrollTndicator={false}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <View>
-            <Image source={{ uri: item?.imageUrl }}
-              style={styles?.SliderImage}
-              
-            />
+            <Image source={{ uri: item?.imageUrl }} style={styles?.SliderImage} />
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
@@ -42,9 +59,8 @@ export default function Slider() {
 
 const styles = StyleSheet.create({
   SliderImage: {
-    width: Dimensions.get('screen').width*0.9,
-    height: 17,
-    borderRadius: 15,
-    marginRight:15
+    width: 200,
+    height: 120,
+    marginRight: 10,
   },
 });
