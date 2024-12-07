@@ -5,6 +5,7 @@ import { storage } from '../../../config/FirebaseConfig';
 import { ref, getDownloadURL } from 'firebase/storage'; 
 
 
+
 import { db } from '../../../config/FirebaseConfig';
 
 
@@ -18,7 +19,7 @@ export default function Slider() {
   }, []);
 
   const GetSliders = async () => {
-    const snapshot = await getDocs(collection(db, 'Sliders'));
+    const snapshot = await getDocs(collection(db, 'sliders'));
     const sliders = [];
 
     // Loop through each document in the 'Sliders' collection
@@ -48,7 +49,7 @@ export default function Slider() {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <View>
-            <Image source={{ uri: item?.imageUrl }} style={styles?.SliderImage} />
+            <Image source={{ uri: item?.imageUrl }} style={styles.SliderImage} />
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}

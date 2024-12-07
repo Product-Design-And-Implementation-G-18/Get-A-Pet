@@ -1,31 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-
-
 import { ref, getDownloadURL } from 'firebase/storage'; 
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
 import Slider from '../assets/components/Home/Slider';
+
 import Header from '../assets/components/Home/Header';
-import { storage } from '../config/FirebaseConfig'; 
-import { collection, getDocs } from 'firebase/firestore';
+import {db} from '../config/FirebaseConfig';
+
+
+
+
+
+
+
+
 export default function Home() {
-  const [closeImageUrl, setCloseImageUrl] = useState(null);
+
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const closeImageRef = ref(storage, 'images/close.png'); 
-        const url = await getDownloadURL(closeImageRef);
-        setCloseImageUrl(url);
-      } catch (error) {
-        console.error('Error fetching image URL:', error);
-      }
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'sliders'));
+     const data = querySnapshot.docs.map((doc) => doc.data());
+      console.log(data);
+      setData(data);
     };
-
-    fetchImage();
+    fetchData();
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        padding: 20,
+        marginTop: 20,
+      }}
+    >
       {/* Header */}
       <Header />
 
@@ -33,9 +43,18 @@ export default function Home() {
       <Slider />
 
       {/* Firebase Image Example */}
-      {closeImageUrl ? (
-        <Image source={{ uri: closeImageUrl }} style={styles.image} />
-      ) : (
+      {data.length > 0 ? (
+        data.map((item, index) => (
+          <>
+          <Image source={{ uri: item.imageUrl }} 
+          key={index} 
+          style={{ width: 100, height: 100 }}
+          resizeMode="cover"
+          />
+          <Text>{item.name}</Text>
+          </>
+        ))
+        ) : (
         <Text>Loading image...</Text>
       )}
 
@@ -49,15 +68,10 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    marginTop: 20,
-  },
   image: {
     width: 100,
     height: 100,
     marginTop: 20,
   },
 });
-
 

@@ -3,6 +3,10 @@ import { Stack } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import { ClerkProvider } from '@clerk/clerk-react';
 
+// import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
+
+
+
 
 const tokenCache = {
   async getToken(key) {
