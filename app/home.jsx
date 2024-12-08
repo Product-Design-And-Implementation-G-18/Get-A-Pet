@@ -1,27 +1,32 @@
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { storage } from '../firebaseConfig'; // Import your Firebase config
-import { ref, getDownloadURL } from 'firebase/storage';
-import Header from '../assets/components/home/Header';
+import { ref, getDownloadURL } from 'firebase/storage'; 
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
-import Slider from '../assets/components/Home/Slider'; // Correct casing of file name
+import Slider from '../assets/components/Home/Slider';
+
+import Header from '../assets/components/Home/Header';
+import {db} from '../config/FirebaseConfig';
+
+
+
+
+
+
+
 
 export default function Home() {
-  const [closeImageUrl, setCloseImageUrl] = useState(null);
+
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const closeImageRef = ref(storage, 'images/close.png'); // Path in Firebase Storage
-        const url = await getDownloadURL(closeImageRef); // Fetch URL
-        setCloseImageUrl(url);
-      } catch (error) {
-        console.error('Error fetching image URL:', error);
-      }
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'sliders'));
+     const data = querySnapshot.docs.map((doc) => doc.data());
+      console.log(data);
+      setData(data);
     };
-
-    fetchImage();
+    fetchData();
   }, []);
 
   return (
@@ -38,9 +43,18 @@ export default function Home() {
       <Slider />
 
       {/* Firebase Image Example */}
-      {closeImageUrl ? (
-        <Image source={{ uri: closeImageUrl }} style={styles.image} />
-      ) : (
+      {data.length > 0 ? (
+        data.map((item, index) => (
+          <>
+          <Image source={{ uri: item.imageUrl }} 
+          key={index} 
+          style={{ width: 100, height: 100 }}
+          resizeMode="cover"
+          />
+          <Text>{item.name}</Text>
+          </>
+        ))
+        ) : (
         <Text>Loading image...</Text>
       )}
 

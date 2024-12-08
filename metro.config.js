@@ -1,7 +1,6 @@
-module.exports = {
-    transformer: {
-      assetPlugins: ['expo-asset/tools/hashAssetFiles'],
-    },
-    
-  };
-  
+const { getDefaultConfig } = require("expo/metro-config");
+
+const config = getDefaultConfig(__dirname);
+config.resolver.assetExts.push("png");
+
+module.exports = config;
